@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FPG @ Heritage Isles — June 27, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1A6B3A;
+    --green-dark: #0f3f22;
+    --green-mid: #145530;
+    --gold: #C9A84C;
+    --gold-light: #e8c96e;
+    --white: #ffffff;
+    --off-white: #f5f5f0;
+    --gray-light: #e8e8e0;
+    --gray: #999;
+    --text: #1a1a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--green-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 32px 20px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '⛳';
+    position: absolute;
+    font-size: 180px;
+    opacity: 0.04;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 10vw, 60px);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 20px;
+  }
+
+  /* TEE TIMES STRIP */
+  .tee-times {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .tee-chip {
+    background: var(--green-mid);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 4px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 24px 16px 8px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    color: var(--green);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* GAMES GRID */
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .game-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 12px 14px;
+    border-left: 4px solid var(--green);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .game-card .game-name {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+  .game-card .game-cost {
+    font-size: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+  .game-card .game-note {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+
+  /* PLAYER CARDS */
+  .player-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+
+  .player-card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+  }
+  .player-num {
+    background: var(--green);
+    color: var(--gold);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 72px;
+  }
+  .player-body { padding: 10px 12px; }
+  .player-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .player-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 5px;
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .badge-tee-white { background: #f0f0f0; color: #333; border: 1px solid #ccc; }
+  .badge-tee-green { background: #d4edda; color: #155724; border: 1px solid #b8dfbe; }
+  .badge-tee-red   { background: #f8d7da; color: #721c24; border: 1px solid #f0b8bc; }
+  .badge-tee-blue  { background: #cce5ff; color: #004085; border: 1px solid #b8d9f5; }
+  .badge-strokes   { background: var(--green-dark); color: var(--gold); }
+  .badge-capped    { background: #fff3cd; color: #856404; border: 1px solid #ffc107; }
+
+  .player-games {
+    font-size: 12px;
+    color: #555;
+  }
+  .player-games span {
+    display: inline-block;
+    background: var(--off-white);
+    border-radius: 3px;
+    padding: 1px 6px;
+    margin: 2px 2px 0 0;
+    border: 1px solid var(--gray-light);
+  }
+  .player-games .golf-only {
+    color: var(--gray);
+    font-style: italic;
+  }
+
+  /* TIER LABELS */
+  .tier-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--white);
+    background: var(--green);
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+  .tier-label.partial { background: #2c6e8a; }
+  .tier-label.golf-only { background: #6c757d; }
+
+  /* COURSE INFO */
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .course-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-top: 3px solid var(--green);
+  }
+  .course-card.blue { border-top-color: #4a90d9; }
+  .course-card.white { border-top-color: #999; }
+  .course-card.green-tee { border-top-color: #28a745; }
+  .course-card.red { border-top-color: #dc3545; }
+  .course-tee-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .course-tee-name.blue { color: #4a90d9; }
+  .course-tee-name.white { color: #666; }
+  .course-tee-name.green-tee { color: #28a745; }
+  .course-tee-name.red { color: #dc3545; }
+  .course-stat { font-size: 12px; color: #555; line-height: 1.8; }
+  .course-stat strong { color: var(--text); font-weight: 700; }
+
+  /* PAYMENT */
+  .payment-box {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-left: 4px solid var(--gold);
+    margin-bottom: 8px;
+  }
+  .payment-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--gray-light);
+    font-size: 13px;
+  }
+  .payment-row:last-child { border-bottom: none; }
+  .payment-row .label { color: #555; }
+  .payment-row .amount { font-weight: 700; color: var(--green); }
+
+  /* FOOTER */
+  .footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 20px 16px;
+    font-size: 12px;
+    margin-top: 24px;
+  }
+  .footer strong { color: var(--gold); font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; }
+
+  @media (max-width: 420px) {
+    .player-card { grid-template-columns: 40px 1fr; }
+    .player-num { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Florida Players Group · Game Day</div>
+  <h1>Heritage <span>Isles</span></h1>
+  <div class="hero-sub">Saturday, June 27, 2026 · Tampa, FL</div>
+  <div class="tee-times">
+    <div class="tee-chip">8:48 AM</div>
+    <div class="tee-chip">8:57 AM</div>
+    <div class="tee-chip">9:06 AM</div>
+    <div class="tee-chip">9:15 AM</div>
+    <div class="tee-chip">9:23 AM</div>
+  </div>
+</div>
+
+<!-- GAMES -->
+<div class="section">
+  <div class="section-title">🎮 Games</div>
+  <div class="games-grid">
+    <div class="game-card">
+      <div class="game-name">Quota / Stableford</div>
+      <div class="game-cost">$5</div>
+      <div class="game-note">Highest score above quota wins · All IN players only</div>
+    </div>
+    <div class="game-card">
+      <div class="game-name">Champion of the Day</div>
+      <div class="game-cost">$5</div>
+      <div class="game-note">Highest Stableford score wins</div>
+    </div>
+    <div class="game-card">
+      <div class="game-name">Skins</div>
+      <div class="game-cost">$10</div>
+      <div class="game-note">Lowest net score wins the hole</div>
+    </div>
+    <div class="game-card">
+      <div class="game-name">CTP</div>
+      <div class="game-cost">$5</div>
+      <div class="game-note">Closest to the pin on par 3s</div>
+    </div>
+    <div class="game-card">
+      <div class="game-name">Blind Draw</div>
+      <div class="game-cost">$5</div>
+      <div class="game-note">Random poker chip drawing</div>
+    </div>
+  </div>
+
+  <!-- GAME POT SUMMARIES -->
+  <div style="margin-top: 14px;">
+    <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1.5px; color:var(--green); margin-bottom:10px;">💵 Estimated Pot Totals</div>
+    <div class="payment-box" style="margin-bottom:0;">
+      <div class="payment-row">
+        <span class="label">Quota <span style="font-size:11px;color:var(--gray);">(12 All IN players × $5)</span></span>
+        <span class="amount">$60</span>
+      </div>
+      <div class="payment-row">
+        <span class="label">Champion of the Day <span style="font-size:11px;color:var(--gray);">(17 players × $5)</span></span>
+        <span class="amount">$85</span>
+      </div>
+      <div class="payment-row">
+        <span class="label">Skins <span style="font-size:11px;color:var(--gray);">(17 players × $10)</span></span>
+        <span class="amount">$170</span>
+      </div>
+      <div class="payment-row">
+        <span class="label">CTP <span style="font-size:11px;color:var(--gray);">(16 players × $5)</span></span>
+        <span class="amount">$80</span>
+      </div>
+      <div class="payment-row">
+        <span class="label">Blind Draw <span style="font-size:11px;color:var(--gray);">(17 players × $5)</span></span>
+        <span class="amount">$85</span>
+      </div>
+      <div class="payment-row" style="border-top: 2px solid var(--gold); margin-top:4px; padding-top:10px;">
+        <span style="font-weight:700; color:var(--text);">Total Pot</span>
+        <span style="font-weight:700; font-size:18px; color:var(--green);">$480</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLAYERS -->
+<div class="section">
+  <div class="section-title">🏌️ Player Roster</div>
+
+  <!-- ALL IN -->
+  <div class="tier-label">✅ All IN — 5 Games @ $30</div>
+  <div class="player-list">
+
+    <div class="player-card">
+      <div class="player-num">1</div>
+      <div class="player-body">
+        <div class="player-name">TT (Tim Graham)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">18 strokes 🔒</span>
+          <span class="badge badge-capped">Capped</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">2</div>
+      <div class="player-body">
+        <div class="player-name">MGK (Kelleye Elmore)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-green">🟢 Green</span>
+          <span class="badge badge-strokes">18 strokes 🔒</span>
+          <span class="badge badge-capped">Capped</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">3</div>
+      <div class="player-body">
+        <div class="player-name">Chief (Ron Caldwell)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">14 strokes</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">4</div>
+      <div class="player-body">
+        <div class="player-name">Randall (Randall Witty)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">18 strokes 🔒</span>
+          <span class="badge badge-capped">Capped</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">5</div>
+      <div class="player-body">
+        <div class="player-name">Chris (Christopher Williams)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">14 strokes</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">6</div>
+      <div class="player-body">
+        <div class="player-name">Tricky (Nick Campbell)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">18 strokes 🔒</span>
+          <span class="badge badge-capped">Capped</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">7</div>
+      <div class="player-body">
+        <div class="player-name">J Star ⭐ (John Starling)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">14 strokes</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">8</div>
+      <div class="player-body">
+        <div class="player-name">Stingray 🐟 (Ray Elmore)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">5 strokes</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">9</div>
+      <div class="player-body">
+        <div class="player-name">Susan (Susan Leitao)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-green">🟢 Green</span>
+          <span class="badge badge-strokes">6 strokes</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">10</div>
+      <div class="player-body">
+        <div class="player-name">Cheryll Smith</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-green">🟢 Green</span>
+          <span class="badge badge-strokes">18 strokes 🔒</span>
+          <span class="badge badge-capped">Capped</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">11</div>
+      <div class="player-body">
+        <div class="player-name">Hot Rod (Rod Davis)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">15 strokes</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">12</div>
+      <div class="player-body">
+        <div class="player-name">Bridgette (Bridgette Thomas)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-green">🟢 Green</span>
+          <span class="badge badge-strokes">12 strokes</span>
+        </div>
+        <div class="player-games"><span>Quota</span><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PARTIAL -->
+  <div class="tier-label partial" style="margin-top:16px;">🎯 Partial Games</div>
+  <div class="player-list">
+
+    <div class="player-card">
+      <div class="player-num">13</div>
+      <div class="player-body">
+        <div class="player-name">Dana Davis</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-green">🟢 Green</span>
+          <span class="badge badge-strokes">18 strokes 🔒</span>
+          <span class="badge badge-capped">Capped</span>
+        </div>
+        <div class="player-games"><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">14</div>
+      <div class="player-body">
+        <div class="player-name">Dave Davis</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">3 strokes</span>
+        </div>
+        <div class="player-games"><span>Champ of the Day</span><span>Skins</span><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">15</div>
+      <div class="player-body">
+        <div class="player-name">David (Dave Sereke)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">4 strokes</span>
+        </div>
+        <div class="player-games"><span>Champ of the Day</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">16</div>
+      <div class="player-body">
+        <div class="player-name">Mark G (Mark Garbutt)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">6 strokes</span>
+        </div>
+        <div class="player-games"><span>CTP</span><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="player-num">17</div>
+      <div class="player-body">
+        <div class="player-name">Dot (Dorothy McHenry)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-red">🔴 Red</span>
+          <span class="badge badge-strokes">18 strokes 🔒</span>
+          <span class="badge badge-capped">Capped</span>
+        </div>
+        <div class="player-games"><span>Blind Draw</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GOLF ONLY -->
+  <div class="tier-label golf-only" style="margin-top:16px;">🏌️ Golf Only</div>
+  <div class="player-list">
+    <div class="player-card">
+      <div class="player-num">18</div>
+      <div class="player-body">
+        <div class="player-name">Larry (Laurence Murdock)</div>
+        <div class="player-meta">
+          <span class="badge badge-tee-white">⬜ White</span>
+          <span class="badge badge-strokes">11 strokes</span>
+        </div>
+        <div class="player-games"><span class="golf-only">No games — golf only</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COURSE INFO -->
+<div class="section">
+  <div class="section-title">📋 Course Info</div>
+  <div class="course-grid">
+    <div class="course-card white">
+      <div class="course-tee-name white">⬜ White Tees (Men)</div>
+      <div class="course-stat">
+        <strong>5,573 yards</strong><br>
+        Par 72 · Rating 68.0 · Slope 118
+      </div>
+    </div>
+    <div class="course-card blue">
+      <div class="course-tee-name blue">🔵 Blue Tees (Men)</div>
+      <div class="course-stat">
+        <strong>6,214 yards</strong><br>
+        Par 72 · Rating 71.0 · Slope 130
+      </div>
+    </div>
+    <div class="course-card green-tee">
+      <div class="course-tee-name green-tee">🟢 Green Tees (Women)</div>
+      <div class="course-stat">
+        <strong>4,899 yards</strong><br>
+        Par 72 · Rating 64.6 · Slope 105
+      </div>
+    </div>
+    <div class="course-card red">
+      <div class="course-tee-name red">🔴 Red Tees (Women)</div>
+      <div class="course-stat">
+        <strong>4,784 yards</strong><br>
+        Par 72 · Rating 63.9 · Slope 104
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- FOOTER -->
+<div class="footer">
+  <div><strong>Florida Players Group</strong></div>
+  <div style="margin-top:4px;">Good Golf · Good Friends · Good Times ⛳🤙</div>
+  <div style="margin-top:6px;">Questions? Contact <strong>Sting Ray 🐟</strong></div>
+</div>
+
+</body>
+</html>
